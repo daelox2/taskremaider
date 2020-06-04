@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+<body background="img/26bec0ba6e3a1baf74cb8651317fcbe9.jpg" style="background-repeat: no-repeat; background-position: center center;">
+    <meta charset="UTF-8">
+    <title></title>
+    <!-- BOOTSTRAP 4 BOOTSWATCH LUX THEME -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+  </head>
+  <body>
+
+  
+    <nav class="navbar navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="app.html">Tasks Reminder</a>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" href="somo.html">¿Quienes somos?</a>
+  </li>
+  <li class="nav-item">
+</li>
+  <li class="nav-item">
+    <a class="nav-link" href="proposito.html">Nuestro proposito</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="qesapptask.html">Que es Task Remeider</a>
+  </li>
+</ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row my-5">
+        <div class="col-md-4">
+
+          <div class="card">
+            <div class="card-body">
+              <!-- FORM TO ADD TASKS -->
+              <form id="formTask">
+                <div class="form-group">
+                  <input type="text" id="title" placeholder="Crea tu tarea" class="form-control">
+                </div>
+                <div class="form-group">
+                  <textarea id="description" cols="30" rows="10" class="form-control"placeholder="Describe la tarea" ></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Save</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          <div id="tasks"></div>
+        </div>
+      </div>
+      
+    </div>
+    <script>
+
+document.getElementById('formTask').addEventListener('submit', saveTask);
+function saveTask(e) {
+  
+  let title = document.getElementById('title').value;
+  let description = document.getElementById('description').value;
+  console.log(description)
+  let task = {
+    title,
+    description
+  };
+
+  if(localStorage.getItem('tasks') === null) {
+    let tasks = [];
+    tasks.push(task);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  } else {
+    let tasks = JSON.parse(localStorage.getItem('tasks'));
+    tasks.push(task);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
+
+  getTasks();
+  document.getElementById('formTask').reset();
+  e.preventDefault();
+}
+
+function deleteTask(title) {
+  console.log(title)
+  let tasks = JSON.parse(localStorage.getItem('tasks'));
+  for(let i = 0; i < tasks.length; i++) {
+    if(tasks[i].title == title) {
+      tasks.splice(i, 1);
+    }
+  }
+  
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+  getTasks();
+}
+
+function getTasks() {
+  let tasks = JSON.parse(localStorage.getItem('tasks'));
+  let tasksView = document.getElementById('tasks');
+  tasksView.innerHTML = '';
+  for(let i = 0; i < tasks.length; i++) {
+    let title = tasks[i].title;
+    let description = tasks[i].description;
+
+    tasksView.innerHTML += `<div class="card mb-3">
+        <div class="card-body">
+          <p>${title} - ${description}
+          <a href="#" onclick="deleteTask('${title}')" class="btn btn-danger ml-5">Delete</a>
+          </p>
+        </div>
+      </div>`;
+  }
+}
+
+getTasks();
+</script>
+  </body>
+</html>

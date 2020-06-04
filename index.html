@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+<body background="img\2000_5c205f68afece.jpg">
+<meta charset="UTF-8">
+<title>Register/Inicia</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-light bg-light">
+<div class="container">
+<a href"class="navbar-brand"><h2>Tasks Reminder</h2></a>
+</div>
+</nav>
+</div>
+
+<div class="row justify-content-md-center pt-5">
+<div class="col-md-4">
+<div class="card border-primary mb-4">
+<div class="card-body">
+<form id="form1" action="javascript:sendMail();">
+<h2>INGRESA LOS DATOS</H2>
+	<div class="form-group">
+	<label>Nombre del usuario:</label>
+	<input type="text" id="nom" placeholder="Nombre" class="form-control" >
+	</div>
+<div class="form-group">
+<label>Correo electronico:</label>
+<input type="email" id="correo" placeholder="Correo @" class="form-control" >
+</div>
+<div class="form-group">
+<label>Telefono:</label>
+<input type="text" id="tel" placeholder="Telefono" class="form-control" r>
+</div>
+<center><div class="form-group">
+<button class="btn btn-primary btn-block" type="submit"> Validar datos</button>
+</div></center>
+</div>
+</form>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+</div>
+</div>
+</div>
+
+</form>
+<script>
+document.getElementById('form1').addEventListener('submit', validar);
+
+function validar(e){
+console.log(e);
+e.preventDefault();
+var nombre,correo,telefono,e;
+nombre= document.getElementById("nom").value;
+correo= document.getElementById("correo").value;
+telefono= document.getElementById("tel").value;
+i=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/;
+if(nombre===""||correo===""||telefono===""){
+alert("Todos los campos son nesesarios");
+}
+
+else if(nombre.length>50){
+alert("El nombre es muy largo");
+return false;
+}
+else if(correo.length>100){
+alert("Tu coreo es muy largo");
+return false;
+}
+else if(telefono.length>10){
+alert("Tu numero telefonico es muy largo");
+return false;
+}
+else if(i.test(correo)){
+alert("Correo no valido");
+return false;
+}
+else if(isNaN(telefono)){
+alert("El telefono ingresado no es un numero");
+return false;
+}
+else{
+window.location.replace('app.html')
+}
+}
+</script>
+</body>
+</html>
